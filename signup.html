@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIT Wiki - Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+      <!-- Navigation Bar -->
+  <div class="navbar">
+    <div class="nav-logo">AIT Wiki</div>
+    <div class="nav-center">
+        <span class="nav-tab active" id="what-is-this-tab"><a href="index.html">What is this?</a></span>
+        <span class="nav-tab" id="contributors-tab">Contributors</span>
+    </div>
+</div>
+
+
+
+
+    <section id="login-page">
+        <h2 class="loginhead">Create a new Account</h2>
+        <form id="regForm">
+            <div class="form-group">
+                <label for="name"><span class="loginLabel">Name</span></label>
+                <input type="name" id="name" name="name" placeholder="Firstname LastName" required>
+            </div>
+            <div class="form-group">
+                <label for="residence"><span class="loginLabel">Registration Number:</span></label>
+                <input type="name" id="regnp" name="regno" placeholder="240053" required>
+            </div>
+            <div class="form-group">
+                <label for="residence"><span class="loginLabel">Branch</span></label>
+                <select name="dropdown_name">
+                    <option value="option1">Comp - A</option>
+                    <option value="option2">Comp - B</option>
+                    <option value="optionN">IT - A</option>
+                    <option value="optionN">IT - B</option>
+                    <option value="optionN">EnTC - A</option>
+                    <option value="optionN">EnTC - B</option>
+                    <option value="optionN">Mech</option>
+                    <option value="optionN">ARE</option>
+                  </select>
+            </div>
+            <div class="form-group">
+                <label for="number"><span class="loginLabel">Phone Number</span></label>
+                <input type="tel" id="number" name="number" pattern="[0-9]{10}" minlength="10" maxlength="10" required>
+                <p id="phone-error-message" style="color: yellow; display: none;"></p>
+            </div>
+            <div class="form-group">
+                <label for="email"><span class="loginLabel">E-mail</span></label>
+                <input type="email" id="email" name="email" placeholder="username@email.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password"><span class="loginLabel">Password</span></label>
+                <input type="password" id="description" name="description" pattern='[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]{8,12}' minlength="8" maxlength="15" required></input>
+            </div>
+            <div id="password-label"><p id="password-strength" style="display: none;">Password Strength: </p><div><p ><span id="strength-text" style="display: none;">Weak</span></p></div></div>
+            <div id="password-criteria" style="display: none;">
+              <ul>
+                  <li id="length-criteria" >• Password must be at least 8 characters long</li>
+                  <li id="uppercase-criteria" >• Must contain at least one uppercase letter</li>
+                  <li id="lowercase-criteria">• Must contain at least one lowercase letter</li>
+                  <li id="number-criteria" >• Must contain at least one number</li>
+                  <li id="symbol-criteria" >• Must contain at least one symbol</li>
+              </ul>
+          </div>
+            <div class="form-group">
+                <label for="re-password"><span class="loginLabel">Re-enter Password</span></label>
+                <input type="re-password" id="re-password" name="description" required></input>
+                <p id="password-match-message" style="color: yellow; display: none;">Passwords do not match!</p>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Remember Me</label>
+                <input type="checkbox" id="remember" name="name">
+            </div>
+          <div id="submit-button">
+            <button class="btn btn-secondary" type="submit">
+              <span class="text text-1">Register</span>
+              <span class="text text-2" aria-hidden="true">Register</span>
+            </button>
+          </div>
+          <hr class="divider">
+          <div class="doregister">Already have an account? <a href="login.html" class="register">Login</a></div>
+        </form>
+      </section>
+      <script src="script.js"></script>
+      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
