@@ -18,7 +18,7 @@ function setActiveTab(tabId) {
     document.getElementById(tabId).classList.add('active');
 }
 loginButton = document.querySelector('.sign-up-btn')
-document.querySelector('.sign-up-btn').addEventListener('click', () => {
+loginButton.addEventListener('click', () => {
     window.location.href = 'login.html';
 });
 
@@ -61,19 +61,6 @@ document.querySelector('.sign-up-btn').addEventListener('click', () => {
         if (storedUserData) {
             const user = JSON.parse(storedUserData);
             alert(`Welcome back, ${user.name}! You are already logged in.`);
-            
-            // Replace the login button with user's profile picture
-            const navBar = document.querySelector('.navbar');
-            // const loginButton = document.querySelector('.login-btn');
-            if (loginButton) {
-                loginButton.remove(); // Remove the login button
-            }
-            // Create a new profile picture element in the nav bar
-            const profilePic = document.createElement('img');
-            profilePic.src = 'dp.png'; // Path to the user's profile picture
-            profilePic.alt = 'Profile Picture';
-            profilePic.classList.add('profile-pic'); // Add styling if necessary
-            navBar.appendChild(profilePic); // Add the profile picture to the nav bar
         }
         window.location.href = 'chat.html';
     }
@@ -103,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (email === storedUserData.email && password === storedUserData.password) {
                     alert(`Welcome back, ${storedUserData.name}!`);
                     window.location.href = 'chat.html'; // Redirect to chat.html instead of index.html
-                    checkIfLoggedIn();
                 } else {
                     alert('Invalid email or password.');
                 }
