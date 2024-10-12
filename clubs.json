@@ -1,10 +1,10 @@
 {
-  "oss club": {
-    "secretary": ["John Doe"],
-    "president": ["Jane Smith"]
+  "oss": {
+    "secretary": ["Kaushal Vyas, Deepshikha Rawat"],
+    "joint secretary": ["Sagar Sharma, Mohit Sharma, Ashish Bajpai, Bipasa Maji"]
   },
   "competitive programming": {
-    "secretary": ["Alice Johnson"],
-    "president": ["Bob Brown"]
+    "secretary": ["Devansh Singh"],
+    "joint secretary": ["Ritish Kumar, Ritik Nehra"]
   }
 }
