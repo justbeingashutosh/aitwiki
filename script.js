@@ -167,9 +167,9 @@ submitButton.addEventListener('click', async () => {
     const { day, time, date } = getCurrentDateTime();
 
     // Load external datasets
-    const clubs = await loadDataset('clubs.json'); // Load clubs data
-    const timetable = await loadDataset('timetable.json'); // Load timetable data
-    const holidays = await loadDataset('holidays.json'); // Load holidays data
+    const clubs = await loadDataset('./clubs.json'); // Load clubs data
+    const timetable = await loadDataset('./timetable.json'); // Load timetable data
+    const holidays = await loadDataset('./holidays.json'); // Load holidays data
 
     // Check for errors in loading datasets
     if (!clubs || !timetable || !holidays) {
