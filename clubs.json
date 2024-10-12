@@ -1,0 +1,10 @@
+{
+  "oss club": {
+    "secretary": ["John Doe"],
+    "president": ["Jane Smith"]
+  },
+  "competitive programming": {
+    "secretary": ["Alice Johnson"],
+    "president": ["Bob Brown"]
+  }
+}

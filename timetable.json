@@ -1,0 +1,20 @@
+{
+    "Comp - A": {
+      "Monday": [
+        { "subject": "Mathematics", "startTime": "09:00", "endTime": "10:00" },
+        { "subject": "Physics", "startTime": "10:00", "endTime": "11:00" }
+      ],
+      "Tuesday": [
+        { "subject": "Chemistry", "startTime": "09:00", "endTime": "10:00" }
+      ]
+    },
+    "IT - B": {
+      "Monday": [
+        { "subject": "Programming", "startTime": "10:00", "endTime": "11:00" }
+      ],
+      "Tuesday": [
+        { "subject": "Data Structures", "startTime": "11:00", "endTime": "12:00" }
+      ]
+    }
+  }
+  

@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIT Wiki</title>
+    <title>AIT Wiki - Chat</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-     <!-- Navigation Bar -->
-     <div class="navbar">
+    <!-- Navigation Bar -->
+    <div class="navbar">
         <div class="nav-logo">AIT Wiki</div>
         <div class="nav-center">
             <span class="nav-tab active" id="what-is-this-tab">What is this?</span>
@@ -17,8 +17,14 @@
         <button class="sign-up-btn" style="visibility: hidden;">Login</button>
         <img src="dp.png" class="profile-pic">
     </div>
+    
+    <!-- Chat Section -->
     <div id="chat">
-        <input id = "chatbox">
+        <input id="chatbox" placeholder="Enter your query...">
+        <button id="submit-query">Submit</button>
+        <div id="response"></div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
