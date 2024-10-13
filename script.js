@@ -173,7 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return null; // No matching club found
     }
-
     // Get the current day, time, and date
     function getCurrentDateTime() {
         const now = new Date();
