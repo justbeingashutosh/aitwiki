@@ -1,9 +1,8 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     // Handle Navigation and Tabs (Common to all pages)
     const whatIsThisTab = document.getElementById('what-is-this-tab');
     const contributorsTab = document.getElementById('contributors-tab');
-    
+
     if (whatIsThisTab && contributorsTab) {
         // Switch between tabs if the elements exist on the current page
         whatIsThisTab.addEventListener('click', function() {
@@ -105,116 +104,150 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-// -------------------------------------------------------------------
+    // -------------------------------------------------------------------
 
-const submitButton = document.getElementById('submit-query');
-const chatbox = document.getElementById('chatbox');
-const responseDiv = document.getElementById('response');
+    const submitButton = document.getElementById('submit-query');
+    const chatbox = document.getElementById('chatbox');
+    // const responseDiv = document.getElementById('response');
+    const chatHistory = document.getElementById('chat-history');
 
-// Function to load a JSON dataset (for clubs, timetable, holidays)
-async function loadDataset(filename) {
-    try {
-        const response = await fetch(filename);
-        if (!response.ok) {
-            throw new Error(`Failed to load ${filename}`);
-        }
-        const data = await response.json();
-        console.log(`Loaded ${filename}:`, data); // Debugging: log loaded data
-        return data;
-    } catch (error) {
-        console.error(`Error loading ${filename}:`, error);
-        return null;
-    }
-}
-
-// Get the current day, time, and date
-function getCurrentDateTime() {
-    const now = new Date();
-    const day = now.toLocaleString('en-US', { weekday: 'long' });
-    const time = now.toTimeString().split(' ')[0].substring(0, 5); // Get time in HH:MM format
-    const date = now.toISOString().split('T')[0]; // Get date in YYYY-MM-DD format
-    return { day, time, date };
-}
-
-// Check if today is a holiday (Saturday, Sunday, or national holiday)
-function isHoliday(holidays, date) {
-    const { day } = getCurrentDateTime();
-    return day === "Saturday" || day === "Sunday" || holidays.includes(date);
-}
-
-// Find the current class for the user based on timetable
-function getCurrentClass(timetable, branch, day, time) {
-    const todayClasses = timetable[branch][day];
-    if (!todayClasses || todayClasses.length === 0) {
-        return "You have no classes today.";
-    }
-
-    for (const cls of todayClasses) {
-        if (time >= cls.startTime && time <= cls.endTime) {
-            return `Your current class is ${cls.subject} (${cls.startTime} - ${cls.endTime}).`;
+    // Function to load a JSON dataset (for clubs, timetable, holidays)
+    async function loadDataset(filename) {
+        try {
+            const response = await fetch(filename);
+            if (!response.ok) {
+                throw new Error(`Failed to load ${filename}`);
+            }
+            const data = await response.json();
+            console.log(`Loaded ${filename}:`, data); // Debugging: log loaded data
+            return data;
+        } catch (error) {
+            console.error(`Error loading ${filename}:`, error);
+            return null;
         }
     }
-    return "You have no more classes at this time.";
-}
 
-// Handle user query submission
-submitButton.addEventListener('click', async () => {
-    console.log("Submit button clicked"); // Debugging: Check if event listener works
+    function appendMessage(message, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', sender); // 'message' class for common styling, 'user' or 'bot' class for distinction
+        messageDiv.innerText = message;
 
-    const userQuery = chatbox.value.toLowerCase(); // Convert to lowercase for easier matching
-    console.log("User Query:", userQuery); // Debugging: Log the user query
-
-    const { day, time, date } = getCurrentDateTime();
-
-    // Load external datasets
-    const clubs = await loadDataset('clubs.json'); // Load clubs data
-    const timetable = await loadDataset('timetable.json'); // Load timetable data
-    const holidays = await loadDataset('holidays.json'); // Load holidays data
-
-    // Check for errors in loading datasets
-    if (!clubs || !timetable || !holidays) {
-        responseDiv.innerHTML = "Error loading required data. Please try again later.";
-        return;
+        chatHistory.appendChild(messageDiv);
+        chatHistory.scrollTop = chatHistory.scrollHeight; // Auto-scroll to the latest message
     }
 
-    // Club-related query
-    const clubMatch = userQuery.match(/who (is|are|who's) the (\w+) of (.+) club\?/i); // Case insensitive
-    if (clubMatch) {
-        const position = clubMatch[2].toLowerCase(); // Extract the position
-        const club = clubMatch[3].toLowerCase().trim(); // Extract the club name
-        console.log("Club match:", position, club); // Debugging: Log matched position and club
+    // Function to find the matching club by name or alias
+    function findClubByName(userQuery, clubs) {
+        const queryLower = userQuery.toLowerCase(); // Normalize user query to lowercase
 
-        if (clubs[club] && clubs[club][position]) {
-            const people = clubs[club][position].join(', ');
-            responseDiv.innerHTML = `The ${position} of ${club} is/are: ${people}.`;
-        } else {
-            responseDiv.innerHTML = `Sorry, I don't have information about the ${position} of ${club}.`;
+        // Iterate over each club in the clubs object
+        for (const [clubName, clubData] of Object.entries(clubs)) {
+            // Check if the main club name matches the query
+            if (queryLower.includes(clubName.toLowerCase())) {
+                return clubName;
+            }
+
+            // Check if any of the club's aliases match the query
+            if (clubData.aliases) {
+                for (const alias of clubData.aliases) {
+                    if (queryLower.includes(alias.toLowerCase())) {
+                        return clubName; // Return the main club name if an alias matches
+                    }
+                }
+            }
         }
-        return;
+
+        return null; // No matching club found
     }
 
-    // Check for current class query
-    if (userQuery.includes("current class") || userQuery.includes("my current class")) {
-        const userBranch = JSON.parse(localStorage.getItem('userData')).branch; // Get user's branch from stored data
-        console.log("User Branch:", userBranch); // Debugging: Log the user's branch
+    // Get the current day, time, and date
+    function getCurrentDateTime() {
+        const now = new Date();
+        const day = now.toLocaleString('en-US', { weekday: 'long' });
+        const time = now.toTimeString().split(' ')[0].substring(0, 5); // Get time in HH:MM format
+        const date = now.toISOString().split('T')[0]; // Get date in YYYY-MM-DD format
+        return { day, time, date };
+    }
 
-        // Check if it's a holiday
-        if (isHoliday(holidays.holidays, date)) {
-            responseDiv.innerHTML = "Today is a holiday. No classes.";
-        } else {
-            // Get the current class for the user's branch
-            const currentClass = getCurrentClass(timetable, userBranch, day, time);
-            responseDiv.innerHTML = currentClass;
+    // Check if today is a holiday (Saturday, Sunday, or national holiday)
+    function isHoliday(holidays, date) {
+        const { day } = getCurrentDateTime();
+        return day === "Saturday" || day === "Sunday" || holidays.includes(date);
+    }
+
+    // Find the current class for the user based on timetable
+    function getCurrentClass(timetable, branch, day, time) {
+        const todayClasses = timetable[branch][day];
+        if (!todayClasses || todayClasses.length === 0) {
+            return "You have no classes today.";
         }
-        return;
+
+        for (const cls of todayClasses) {
+            if (time >= cls.startTime && time <= cls.endTime) {
+                return `Your current class is ${cls.subject} (${cls.startTime} - ${cls.endTime}).`;
+            }
+        }
+        return "You have no more classes at this time.";
     }
 
-    responseDiv.innerHTML = "Sorry, I don't understand your query.";
+    // Handle user query submission
+    submitButton.addEventListener('click', async () => {
+        console.log("Submit button clicked"); // Debugging: Check if event listener works
+
+        const userQuery = chatbox.value.trim(); // Convert to lowercase for easier matching
+        console.log("User Query:", userQuery); // Debugging: Log the user query
+        if (!userQuery) return;
+        
+        appendMessage(userQuery, 'user'); // Display the user's message
+        chatbox.value = '';
+
+        const { day, time, date } = getCurrentDateTime();
+
+        // Load external datasets
+        const clubs = await loadDataset('clubs.json'); // Load clubs data
+        const timetable = await loadDataset('timetable.json'); // Load timetable data
+        const holidays = await loadDataset('holidays.json'); // Load holidays data
+
+        // Check for errors in loading datasets
+        if (!clubs || !timetable || !holidays) {
+            appendMessage("Error loading required data. Please try again later.", 'AIT-wiki');
+            return;
+        }
+        const lowerCaseQuery = userQuery.toLowerCase()
+
+        // Club-related query handling
+        const clubMatch = lowerCaseQuery.match(/who (is|are|who's) the (\w+) of (.+) club\?/i); // Updated regex to capture everything after "of"
+        if (clubMatch) {
+            const position = clubMatch[2].toLowerCase(); // Normalize position (e.g., secretary)
+            const userClubQuery = clubMatch[3].toLowerCase().trim(); // Extract the part after "of"
+
+            // Use the function to find the club name (main or alias)
+            const matchedClub = findClubByName(userClubQuery, clubs);
+            if (matchedClub && clubs[matchedClub][position]) {
+                const people = clubs[matchedClub][position].join(', ');
+                appendMessage(`The ${position} of ${matchedClub} is/are: ${people}.`, 'AIT-wiki');
+            } else {
+                appendMessage(`Sorry, I don't have information about the ${position} of ${userClubQuery}.`, 'AIT-wiki');
+            }
+            return;
+        }
+
+        // Check for current class query
+        if (lowerCaseQuery.includes("current class") || lowerCaseQuery.includes("my current class")) {
+            const userBranch = JSON.parse(localStorage.getItem('userData')).branch; // Get user's branch from stored data
+            console.log("User Branch:", userBranch); // Debugging: Log the user's branch
+
+            // Check if it's a holiday
+            if (isHoliday(holidays.holidays, date)) {
+                appendMessage("Today is a holiday. No classes.");
+            } else {
+                // Get the current class for the user's branch
+                const currentClass = getCurrentClass(timetable, userBranch, day, time);
+                appendMessage(currentClass);
+            }
+            return;
+        }
+
+        appendMessage("Sorry, I don't understand your query.");
+    });
 });
-});
-
-
-
-// document.addEventListener('DOMContentLoaded', () => {
-    
-// });
