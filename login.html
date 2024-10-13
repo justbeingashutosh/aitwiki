@@ -8,35 +8,51 @@
 </head>
 <body>
   <!-- Navigation Bar -->
-  <div class="navbar">
+  <!-- <div class="navbar">
     <div class="nav-logo">AIT Wiki</div>
     <div class="nav-center">
         <span class="nav-tab active" id="what-is-this-tab"><a href="index.html">What is this?</a></span>
         <span class="nav-tab" id="contributors-tab">Contributors</span>
     </div>
-</div>
+  </div> -->
+<div class="container">
+  <div class="sidebar">
+   <video autoplay loop playsinline poster="video.mp4"
+   class="leftcontrol">
+   <source src="video.mp4"></video>
+  </div>
 
-
-
-
-<section id="login-page">
-  <h2 class="loginhead">Login to your Account</h2>
+ <div class="home">
+   <section id="login-page">
+  <div class="loginhead">Welcome To AIT Wiki 
+    <!-- <hr class="divider"> -->
+          <div class="doregister">Don't have an account? <a href="signup.html" class="register">Sign Up</a></div>
+  </div>
   <form id="loginForm">
       <div class="form-group">
-          <label for="email"><span class="loginLabel">E-mail</span></label>
+          <label for="email"><span class="loginLabel"></span></label>
           <input type="email" id="loginEmail" name="email" placeholder="username@email.com" required>
       </div>
       <div class="form-group">
-          <label for="password"><span class="loginLabel">Password</span></label>
-          <input type="password" id="loginPassword" name="password" required>
+          <label for="password"><span class="loginLabel"></span></label>
+          <input type="password" id="loginPassword" name="password" placeholder="Password" required>
       </div>
       <div id="submit-button">
-          <button class="btn btn-secondary" type="submit">Login</button>
+          <button class="btn btn-secondary" type="submit">Log in</button>
       </div>
-      <hr class="divider">
-          <div class="doregister">Don't have an account? <a href="signup.html" class="register">Sign Up</a></div>
   </form>
-</section>
+  </form>
+    <div class="page">
+     <div class="divider">or</div>
+     <button class="google" type="submit">Log in With Google</button>
+     <button class="apple" type="submit">Log in With Apple</button>
+     <div class="end">Forgot Password</div>
+
+
+     </div>
+  </section>
+  </div>
+</div>
     <script src="script.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
