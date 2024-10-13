@@ -54,17 +54,16 @@
             </div>
             <div class="form-group">
                 <label for="password"><span class="loginLabel">Password</span></label>
-                <input type="password" id="description" name="description" pattern='[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]{8,12}' minlength="8" maxlength="15" required></input>
+                <input type="password" id="description" name="description" minlength="8" maxlength="15" required>
             </div>
-            <div id="password-label"><p id="password-strength" style="display: none;">Password Strength: </p><div><p ><span id="strength-text" style="display: none;">Weak</span></p></div></div>
-            <div id="password-criteria" style="display: none;">
-              <ul>
-                  <li id="length-criteria" >• Password must be at least 8 characters long</li>
-                  <li id="uppercase-criteria" >• Must contain at least one uppercase letter</li>
-                  <li id="lowercase-criteria">• Must contain at least one lowercase letter</li>
-                  <li id="number-criteria" >• Must contain at least one number</li>
-                  <li id="symbol-criteria" >• Must contain at least one symbol</li>
-              </ul>
+            <div id="password-criteria">
+                <ul>
+                    <li class="criteria" id="length-criteria">At least 8 characters</li>
+                    <li class="criteria" id="uppercase-criteria">At least one uppercase letter</li>
+                    <li class="criteria" id="lowercase-criteria">At least one lowercase letter</li>
+                    <li class="criteria" id="number-criteria">At least one number</li>
+                    <li class="criteria" id="special-criteria">At least one special character (e.g., @, #, $, etc.)</li>
+                </ul>
           </div>
             <div class="form-group">
                 <label for="re-password"><span class="loginLabel">Re-enter Password</span></label>

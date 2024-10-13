@@ -1,9 +1,11 @@
 {
   "oss": {
+    "aliases": ["open source software"],
     "secretary": ["Kaushal Vyas, Deepshikha Rawat"],
     "joint secretary": ["Sagar Sharma, Mohit Sharma, Ashish Bajpai, Bipasa Maji"]
   },
   "competitive programming": {
+    "aliases": ["cp", "cp cell", "competitive coding"],
     "secretary": ["Devansh Singh"],
     "joint secretary": ["Ritish Kumar, Ritik Nehra"]
   }
