@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatbox = document.getElementById('chatbox');
     // const responseDiv = document.getElementById('response');
     const chatHistory = document.getElementById('chat-history');
+    const newChatButton = document.getElementById('new-chat');
 
     // Function to load a JSON dataset (for clubs, timetable, holidays)
     async function loadDataset(filename) {
@@ -136,6 +137,19 @@ document.addEventListener('DOMContentLoaded', () => {
         chatHistory.scrollTop = chatHistory.scrollHeight; // Auto-scroll to the latest message
     }
 
+
+
+    // if (loginButton) {
+    //     loginButton.addEventListener('click', () => {
+    //         window.location.href = 'login.html';
+    //     });
+    // }
+
+
+    if (newChatButton) {
+    newChatButton.addEventListener('click', () => {
+        chatHistory.innerHTML = ''; // Clear all chat history
+    }); }
     // Function to find the matching club by name or alias
     function findClubByName(userQuery, clubs) {
         const queryLower = userQuery.toLowerCase(); // Normalize user query to lowercase
@@ -176,21 +190,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Find the current class for the user based on timetable
-    function getCurrentClass(timetable, branch, day, time) {
+    function getCurrentClass(timetable, branch, day, time, queryType) {
         const todayClasses = timetable[branch][day];
         if (!todayClasses || todayClasses.length === 0) {
             return "You have no classes today.";
         }
 
-        for (const cls of todayClasses) {
-            if (time >= cls.startTime && time <= cls.endTime) {
-                return `Your current class is ${cls.subject} (${cls.startTime} - ${cls.endTime}).`;
-            }
+        switch (queryType) {
+            case 'next':
+                // Find the next class after the current time
+                for (const cls of todayClasses) {
+                    if (time < cls.startTime) {
+                        return `Your next class is ${cls.subject} (${cls.startTime} - ${cls.endTime}).`;
+                    }
+                }
+                return "You have no more classes today.";
+                
+            case 'first':
+                // Find the first class of the day
+                const firstClass = todayClasses[0];
+                return `Your first class today was ${firstClass.subject} (${firstClass.startTime} - ${firstClass.endTime}).`;
+                
+            case 'last':
+                // Find the last class of the day
+                const lastClass = todayClasses[todayClasses.length - 1];
+                return `Your last class today is ${lastClass.subject} (${lastClass.startTime} - ${lastClass.endTime}).`;
+                
+            case 'previous':
+                // Find the previous class before the current time
+                let previousClass = null;
+                for (const cls of todayClasses) {
+                    if (time > cls.endTime) {
+                        previousClass = cls;
+                    } else {
+                        break;
+                    }
+                }
+                return previousClass
+                    ? `Your previous class was ${previousClass.subject} (${previousClass.startTime} - ${previousClass.endTime}).`
+                    : "You haven't had any classes yet today.";
+                
+            default:
+                return "Sorry, I don't understand your query.";
         }
-        return "You have no more classes at this time.";
     }
 
     // Handle user query submission
+    if (submitButton){
     submitButton.addEventListener('click', async () => {
         console.log("Submit button clicked"); // Debugging: Check if event listener works
 
@@ -249,5 +295,75 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         appendMessage("Sorry, I don't understand your query.");
-    });
+    }); 
+    }
+    // -------------------------------------------
+    const passwordField = document.getElementById('description');
+    const rePasswordField = document.getElementById('re-password');
+    const passwordMatchMessage = document.getElementById('password-match-message');
+    const lengthCriteria = document.getElementById('length-criteria');
+    const uppercaseCriteria = document.getElementById('uppercase-criteria');
+    const lowercaseCriteria = document.getElementById('lowercase-criteria');
+    const numberCriteria = document.getElementById('number-criteria');
+    const specialCriteria = document.getElementById('special-criteria');
+    const passwordCriteriaList = document.getElementById('password-criteria'); // Criteria container
+
+    // Hide criteria on page load
+    passwordCriteriaList.style.display = 'none';
+    passwordMatchMessage.style.display = 'none';
+
+    // Listen for input in the password field
+    passwordField.addEventListener('input', () => {
+        // Show the criteria list only when the user starts typing
+        passwordCriteriaList.style.display = 'block';
+
+        const password = passwordField.value;
+
+        // Check length
+        if (password.length >= 8) {
+            lengthCriteria.style.display = 'none'; // Hide when satisfied
+        } else {
+            lengthCriteria.style.display = 'list-item'; // Show if unsatisfied
+        }
+
+        // Check for uppercase letter
+        if (/[A-Z]/.test(password)) {
+            uppercaseCriteria.style.display = 'none'; // Hide when satisfied
+        } else {
+            uppercaseCriteria.style.display = 'list-item'; // Show if unsatisfied
+        }
+
+        // Check for lowercase letter
+        if (/[a-z]/.test(password)) {
+            lowercaseCriteria.style.display = 'none'; // Hide when satisfied
+        } else {
+            lowercaseCriteria.style.display = 'list-item'; // Show if unsatisfied
+        }
+
+        // Check for number
+        if (/[0-9]/.test(password)) {
+            numberCriteria.style.display = 'none'; // Hide when satisfied
+        } else {
+            numberCriteria.style.display = 'list-item'; // Show if unsatisfied
+        }
+
+        // Check for special character
+        if (/[@#$%^&*(),.?":{}|<>]/.test(password)) {
+            specialCriteria.style.display = 'none'; // Hide when satisfied
+        } else {
+            specialCriteria.style.display = 'list-item'; // Show if unsatisfied
+        }
+
+        rePasswordField.addEventListener('input', () => {
+            const password = passwordField.value;
+            const rePassword = rePasswordField.value;
+    
+            // Show message if passwords don't match, hide if they do
+            if (password !== rePassword) {
+                passwordMatchMessage.style.display = 'block'; // Show message
+            } else {
+                passwordMatchMessage.style.display = 'none'; // Hide message
+            }
+        })
+    })
 });
