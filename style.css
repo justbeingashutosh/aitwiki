@@ -1,132 +1,193 @@
-/* Global Styles */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+*{
+  margin: 0px;
+  border: border-box;
+  font-family:sans-serif ;
 }
-
-/* Navigation Bar */
-.navbar {
-    background-color: #333;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    position: sticky;
-    top: 0;
+body{
+  background-color: black;
 }
-
-.nav-logo {
-    font-size: 24px;
-    font-weight: bold;
+.navbar{
+  height: 55px;
+  width: 100%;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
-
-/* Center the nav-center container */
-.nav-center {
-    display: flex;
-    justify-content: center;
-    flex-grow: 1;
-    gap: 30px;
+.nav-logo{
+  height: 48px;
+  width: 68.5px;
+  display: flex;
+  position: absolute;
+  left: 200px;
 }
-
-/* Align tabs in the center */
-.navbar > .nav-center {
-    margin-left: auto;
-    margin-right: auto;
+.logo{
+  background-image: url(WhatsApp\ Image\ 2024-10-13\ at\ 10.27.09.png);
+  background-size: contain;
+  height: 38px;
+  width: 100%;
 }
-
-.nav-tab {
-    cursor: pointer;
-    font-size: 18px;
+.navelements{
+  display: flex;
+  align-items: center;
+  font-size:14px ;
 }
-
-.nav-tab.active {
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.sign-up-btn {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.sign-up-btn:hover {
-    background-color: #218838;
-}
-
-/* Content Section */
-.content {
-    margin: 20px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-
-/* LOGIN Form -------------------------------------------------------------------------------------------------- */
-.loginLabel{
-    color: #e8c494;
-    font-weight: var(--weight-bold);
-    letter-spacing: var(--letterSpacing-1);
-    line-height: 14px;
-    padding-bottom: 1%;
-    padding-top: 3%;
-  }
-  #login-page {
-    width: 50%;
-    margin: 50px auto;
-    background-color: #444444;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 4px; 
-  }
-  .loginhead{
-    color: #e8c494;
-    text-align: center;
-  } 
-  input, textarea {
-    width: 100%;
-    padding: 10px;
-    background-color: #232327;
-    /* border: 1px solid #e8c494; */
-    color: white;
-    border-radius: 100px;
-    font-size: 2rem;
-  }
+.nav-center{
+  color:#ffffff ;
   
-  #password-label{
-    display:flex;
-    align-items: flex-start;
-    gap: 5px;
-  }
-  
-  #submit-button{
-    display: flex;
-    justify-content: center;
-    padding-top: 3%;
-    width: 100%;
-  }
+}
+.navmargin{
+  margin: 0px 30px;
+}
+.navlogin{
+  position: absolute;
+  right: 200px;
+}
+.loginbutton{
+  border-color: #ffffff;
+  border-radius:100px;
+  width: 100px;
 
-  /* -------------------------------------------------------------------------------------- */
-  .profile-pic {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-right: 10px;
 }
-#chatbox{
-  width: 50%
+
+/* =========== THE HERO SECTION =========== */
+
+.herosection{
+  background-color: black;
+  height: 800px;
+
 }
-#chat{
+.herodiv{
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 30%;
+  height: 678px;
+  width: 1290px;
+  position: absolute;
+  left: 40px;
+
+}
+.heroimage{
+  background-image: url(hero\ image\ aitwiki.webp);
+  background-size: cover;
+  height: 678px;
+  width: 1350px;
+}
+.heroname{
+  position: absolute;
+  top: 300px;
+  left: 400px;
+  color: #ffffff;
+}
+.heroname h2{
+  font-size: 50px;
+  text-align: center;
+}
+.heroname p{
+  font-size: 18px;
+  margin-top: 10px;
+}
+.learnmore{
+  position: absolute;
+  top: 440px;
+  left: 610px;
+  font-size:15px ;
+  font-weight: 0;
+  color: #080808c1;
+  border-color: #ffffff;
+  border-radius: 100px;
+  box-shadow: #ffffff;
+  height: 40px;
+  width: 150px;
+}
+
+/* =========== THE BANNER =========== */
+
+.bannerbackground{
+  background-color: black;
+  
+}
+.banner{
+  width: 1000px;
+  height: 160px;
+  background-color: rgba(0, 0, 0, 0.597);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bannerbox{
+  width: 720px;
+  height: 85px;
+  
+}
+.bannertext{
+  color: #ffffff;
+  font-size: 36px;
+}
+.bannerbox button{
+  width: 150px;
+  height: 30px;
+  border-radius: 100px;
+}
+
+/* =========== THE PROJECT ========= */
+
+.projecttitle p{
+  color: #ffffff;
+  font-size: 27px;
+  position: absolute;
+  top: 1130px;
+  left: 140px;
+}
+.theproject{
+  display: flex;
+  flex-wrap: wrap;
+  /* so the lower four boxes are in the next line */
+  justify-content: space-evenly;
+  background-color: black;
+  margin-top: 125px;
+}
+.boxes{
+  height: 380px;
+  width: 315px;
+  background-color: black;
+  padding: 20px 0px 15px 0px;
+  margin-top: 15px ;
+  
+  /* so it doesn't collide with te above div */
+}
+.box1{
+  margin-left: 130px;
+}
+.boximage{
+  height: 360px;
+  background-size: cover;
+  /* margin-top: 1rem;
+  margin-bottom: 1rem; */
+}
+.boxcontent{
+  /* so the image and text have margin from left and right */
+ margin-left: 10px; 
+ margin-right: 10px;
+}
+.boxcontent p{
+  color:#ffffff;
+  font-size: 0.79rem;
+  /* color of see more */
+}
+.projectitems{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ============= THE CONTRIBUTORS =========== */
+
+.contributertitle p{
+  color: #ffffff;
+  font-size: 27px;
+  position: absolute;
+  top: 1680px;
+  left: 140px;
+
 }
